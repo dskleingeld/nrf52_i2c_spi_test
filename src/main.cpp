@@ -67,11 +67,10 @@ void setup() {
   Serial.print("AD7793 status = ");
   Serial.println(res); /* Answer is 1 when the device is initialized and the ID is read and recognized */ 
 
-  adc.Ready();
+  adc.Reset();
   adc.SetChannel(AD7793_CH_AVDD_MONITOR);
   adc.SetGain(AD7793_GAIN_1);
   adc.SetIntReference(AD7793_REFSEL_INT); /* Sets the reference source for the ADC. */
-
 
   Serial.println("SHT31 test");
   if (! sht31.begin(0x44)) {   // Set to 0x45 for alternate i2c addr
@@ -123,7 +122,7 @@ void loop() {
   Serial.println(conv);
   float AVDD = ((conv - 8388608.0) / 8388608.0) * 1.17 / (1/6.0) ;
   Serial.print("Analog supply voltage (AVDD) = ");
-  Serial.print(AVDD, 4);
+  Serial.print(AVDD, 8);
   Serial.println(" V");
   
   delay(1000);
